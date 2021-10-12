@@ -1,0 +1,234 @@
+<div style="padding: 1rem">
+    <br />
+    <div class="rightNavBar">
+        <a routerLink="" class="backLink">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <p class="float-start">Back to</p>
+        <a routerLink="" class="backLink">
+            <p>Packages Category list</p>
+        </a>
+    </div>
+    <br />
+
+    <div class="alert alert-danger d-flex align-items-center" *ngIf="isError">
+        <i class="fa fa-exclamation-circle fa-2x mx-4"></i>
+        Something went wrong!
+    </div>
+    <hr style="color: #4a5568" />
+    <form #createForm="ngForm" (submit)="getFormData(createForm.value, contentEN.value, contentMM.value)">
+        <ng-template #content let-modal let-c="close" let-d="dismiss">
+            <div class="modal-header text-center">
+                <h4 class="modal-title mainPageName marginBal">Confirmation</h4>
+                <button type="button" class="close btn" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2 form-group">
+                    <div class="col-4 row">
+                        <div class="col-3">
+                            <p class="headingText">Name</p>
+                        </div>
+                        <div class="col-6 ms-1 centerMiddle">
+                            <p class="ms-5">{{ form?.groupName }}</p>
+                        </div>
+                    </div>
+                    <div class="col-4 row">
+                        <div class="col-3">
+                            <p class="headingText">Code</p>
+                        </div>
+                        <div class="col-6 centerMiddle">
+                            <p>{{ form?.groupCode }}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="formgroup">
+                    <div class="col-2">
+                        <p class="headingText">Content</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 row">
+                            <p class="normalText col-2">English</p>
+                            <div class="col-8">
+                                <p>{{ form?.descriptionEn }}</p>
+                            </div>
+                        </div>
+                        <div class="col-6 row ml-4">
+                            <p class="normalText col-2">Burmese</p>
+                            <div class="col-8">
+                                <p>{{ form?.descriptionMm }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="formgroup">
+                    <div class="row">
+                        <div class="col-6 row">
+                            <p class="normalText col-2"> Type</p>
+                            <div class="col-8">
+                                <p>{{ form?.groupType }}</p>
+                            </div>
+                        </div>
+                        <div class="col-6 row ml-4">
+                            <p class="normalText col-2">Status</p>
+                            <div class="col-8">
+                                <p>{{ form?.status }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> <br>
+                <div class="col-6 row ml-4">
+                    <p class="normalText col-2">Order ID</p>
+                    <div class="col-8">
+                        <p>{{ form?.orderId }}</p>
+                    </div>
+                </div>
+                <!-- <div class="formgroup">
+                    <div class="row">
+                        <div class="col-12">
+                            <p style="display: inline-block" class="normalText me-4">
+                                Deeplink
+                            </p>
+                            <input style="border: none" #text readonly value="{{ form?.link }}" />
+
+                            <a style="color: gray; cursor: pointer" class="float-end"
+                                (click)="copyInputMessage(text.value)" value="click to copy">
+                                <i class="fas fa-clone"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="modal-footer">
+                <button (click)="sendData()" (click)="d('Cross click')" class="btn btn-primary">Save</button>
+            </div>
+        </ng-template>
+
+        <div class="row">
+            <div class="mainPageName col-5">
+                <h1>Add New</h1>
+            </div>
+
+            <div class="mainButtons col-6">
+                <button type="submit" (click)="openVerticallyCentered(content)"
+                    class="btn btn-primary mainButton saveButtonMI float-end">
+                    Save
+                </button>
+                <button type="button" class="btn btn-primary mainButton deleteButtonMI float-end">
+                    Delete
+                </button>
+                <button (click)="this.createForm.reset(); this.url = ''" type="button"
+                    class="btn btn-primary mainButton cancelButtonMI float-end">
+                    Cancel
+                </button>
+            </div>
+        </div>
+        <hr style="color: #4a5568" />
+
+        <div class="row mb-2 form-group">
+            <div class="col-6 row">
+                <div class="col-2">
+                    <p class="headingText">Name</p>
+                </div>
+                <div class="col-6">
+                    <input [(ngModel)]='form.groupName' ngModel name="groupName" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col-6 row">
+                <div class="col-2">
+                    <p class="headingText">Code</p>
+                </div>
+                <div class="col-6">
+                    <input [(ngModel)]='form.groupCode' ngModel name="groupCode" type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="formgroup">
+            <div class="col-2">
+                <p class="headingText">Content</p>
+            </div>
+            <div class="row">
+                <div class="col-6 row">
+                    <p class="normalText col-2">English</p>
+                    <div class="col-8">
+                        <textarea id="contentEn" #contentEN class="form-control"
+                            rows="7">{{form.descriptionEn}}</textarea>
+                    </div>
+                </div>
+                <div class="col-6 row ml-4">
+                    <p class="normalText col-2">Burmese</p>
+                    <div class="col-8">
+                        <textarea id="contentMm" #contentMM class="form-control"
+                            rows="7"> {{form.descriptionMm}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="formgroup">
+            <div class="col-6 row ml-4">
+                <p class="normalText col-4">Category Type</p>
+                <div class="col-6">
+                    <select [(ngModel)]='form.groupType' ngModel name='groupType' class="form-select"
+                        aria-label="Default select example">
+                        <option value="" selected disabled>Select Status</option>
+                        <option selected [value]='form?.groupType' disabled>
+                            {{form?.groupType}}
+                        </option>
+                        <option *ngFor='let item of categories' [value]='form?.groupType' value="{{item}}">
+                            {{item}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div> <br>
+        <div class="formgroup">
+            <div class="col-6 row ml-4">
+                <p class="normalText col-4">Status </p>
+                <div class="col-6">
+                    <select [(ngModel)]='form.status' ngModel name='status' class="form-select"
+                        aria-label="Default select example">
+                        <option value="" disabled>Select Status</option>
+                        <option value="TESTING">TESTING</option>
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                        <option value="DELETED">DELETED</option>
+                    </select>
+                </div>
+            </div>
+        </div> <br>
+        <div class="formgroup">
+            <div class="col-6 row ml-4">
+                <p class="normalText col-4">Order ID </p>
+                <div class="col-6">
+                    <select [(ngModel)]='form.orderId' ngModel name='orderId' class="form-select"
+                        aria-label="Default select example">
+                        <option value="" selected disabled>Order ID</option>
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                        <option value=7>7</option>
+                        <option value=8>8</option>
+                        <option value=9>9</option>
+                        <option value=10>10</option>
+                        <option value=11>11</option>
+                        <option value=12>12</option>
+                        <option value=13>13</option>
+                        <option value=14>14</option>
+                        <option value=15>15</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

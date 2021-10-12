@@ -1,0 +1,151 @@
+<br>
+<div style="padding: 1rem;">
+    <div class="rightNavBar ">
+        <a href="" class="backLink">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <p class="float-start">Back to</p>
+        <a href="" class="backLink">
+            <p> Announcement List</p>
+        </a>
+
+        <br>
+        <hr style="color: #4A5568;">
+
+        <form #createForm="ngForm" (submit)="getFormData(createForm.value)">
+            <div class="row">
+                <div class="mainPageName col-5">
+                    <h1>Edit</h1>
+                </div>
+                <div class="mainButtons col-6 ">
+                    <button type="submit" class="btn btn-primary mainButton saveButtonMI float-end"
+                        [disabled]='loading'> Save </button>
+
+                    <button (click)="this.createForm.reset()" type="button"
+                        class="btn btn-primary  mainButton cancelButtonMI float-end"> Cancel </button>
+
+                </div>
+            </div>
+
+            <div class="alert alert-danger d-flex align-items-center" *ngIf="error">
+                <i class="fa fa-exclamation-circle fa-2x mx-4"></i>
+                Something went wrong!
+            </div>
+
+            <hr style="color: #4A5568;">
+
+            <div class="row mb-2 form-group">
+                <div class="col-1">
+                    <p class="headingText"> Name </p>
+                </div>
+                <div class="col-11">
+                    <input [(ngModel)]="announcements.name" ngModel type="text" name="name" class="form-control"
+                        id="bannerName">
+                </div>
+            </div> <br>
+            <div class="formgroup">
+                <div class="col-2">
+                    <p class="headingText">Content</p>
+                </div>
+                <div class="row">
+                    <div class="col-6 row ">
+                        <p class="normalText col-2"> English</p>
+                        <div class="col-8">
+                            <textarea [(ngModel)]="announcements.contentEn" id="textareaEnglish" ngModel
+                                name="contentEn" class="form-control" rows="7" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="col-6 row ml-4">
+                        <p class="normalText col-2"> Burmese</p>
+                        <div class="col-8">
+                            <textarea [(ngModel)]="announcements.contentMm" id="textareaBurmese" ngModel
+                                name="contentMm" class="form-control" rows="7 " placeholder=""></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="formgroup">
+                <div class="col-2">
+                    <p class="headingText">Valid time</p>
+                </div>
+                <div class="row">
+                    <div class="col-6 row">
+                        <!-- <p class="normalText col-2"> Start date</p> -->
+                        <div class="form-group row">
+                            <p class="normalText col-2">Start date</p>
+                            <div class="col-sm-7">
+                                <input [ngModel]="announcements.startTime | date: 'yyyy-MM-ddThh:mm'"
+                                    (ngModelChange)="announcements.startTime=$event" ngModel name="startTime"
+                                    style="height: 1.8rem; width: 80%;" type="datetime-local"
+                                    id="date-time-local-start">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 row">
+                        <!-- <p class="normalText col-2"> Start date</p> -->
+                        <div class="form-group row">
+                            <label style=" margin-left: 2%;" for="inputname" class="col-sm-2 col-form-label">End
+                                date</label>
+                            <div class="col-sm-7">
+                                <input [(ngModel)]="announcements.endTime" ngModel name="endTime"
+                                    [ngModel]="announcements.endTime | date: 'yyyy-MM-ddThh:mm'"
+                                    style="height: 1.8rem; width: 80%;" type="datetime-local" id="date-time-local-end">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div> <br>
+
+            <div class="formgroup">
+                <div class="">
+                    <p class="headingText"> Call-to-action button </p>
+                </div>
+                <div class="row">
+                    <p class="normalText col-1">Type</p>
+                    <div class="dropdown col-2" style="padding-left: 7px;">
+
+                        <select [(ngModel)]="announcements.typeAnnouncement" ngModel name="typeAnnouncement"
+                            class="form-select unknownDropdown" aria-label="Default select example">
+                            <option value="URL">URL</option>
+                            <option value="DEEP_LINK">Deep Link</option>
+                            <option value="NONE">None</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div *ngIf="announcements.typeAnnouncement==='DEEP_LINK' || selectedType==='URL'  " class=" row">
+                    <div class="col-1">
+                        <p class="normalText"> Deeplink </p>
+                    </div>
+                    <div class="col-11">
+                        <input [(ngModel)]="announcements.link" ngModel name="link" type="text" class="form-control"
+                            id="UrlName">
+                    </div>
+                </div>
+            </div> <br>
+            <div *ngIf="announcements.typeAnnouncement==='DEEP_LINK' || selectedType==='URL'  "
+                class="unconsistantDesigns">
+                <p>Button name</p>
+            </div> <br>
+            <div *ngIf="announcements.typeAnnouncement==='DEEP_LINK' || selectedType==='URL'  " class="row">
+                <div class="col-6 row">
+                    <p class="normalText col-2">English</p>
+                    <div class="col-9">
+                        <input [(ngModel)]="announcements.buttonNameEn" ngModel name="buttonNameEn" type="text"
+                            class="form-control" id="buttonNameEn">
+                    </div>
+                </div>
+                <div class="col-6 row">
+                    <p class="normalText col-2">Burmese</p>
+                    <div class="col-9">
+                        <input [(ngModel)]="announcements.buttonNameMm" ngModel name="buttonNameMm" type="text"
+                            class="form-control" id="buttonNameMm">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

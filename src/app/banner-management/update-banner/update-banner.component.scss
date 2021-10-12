@@ -1,0 +1,136 @@
+.profilePic {
+  border-radius: 50%;
+}
+.rightNavBar {
+  margin-right: 10px;
+}
+.mainPageName {
+  color: #4a5568;
+  font-weight: 900;
+  font-size: 36px;
+}
+.mainButtons {
+  margin-right: 10px;
+  padding: 0;
+}
+.tableImage {
+  border-radius: 7px;
+  width: 150px;
+  height: 70px;
+}
+.form-check-input:checked {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+.sidebarBig {
+  color: white;
+  margin-left: 10%;
+  font-size: 1.5vw;
+}
+.sidebarBigDropdowns {
+  width: 100%;
+}
+.mainButton {
+  margin: 5px;
+}
+.headingText {
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.normalText {
+  margin-left: 5px;
+}
+.logged-in {
+  color: #68d391;
+  size: 60;
+  position: absolute;
+  right: 0%;
+  bottom: -2%;
+}
+
+.logged-out {
+  color: red;
+}
+.choseImage {
+  width: 250px;
+  height: 140px;
+  margin-right: 100px;
+}
+.floatLeftnotBootstrap {
+  float: left;
+}
+.editCustom {
+  color: #b4b4b4;
+}
+.showOnSelectOrEdit {
+  display: none;
+  /* change to webkit-box when you want to show */
+}
+.hideAndShow {
+  display: none;
+}
+.backLink {
+  color: black;
+  float: left;
+  margin-right: 20px;
+  margin-left: 5px;
+  text-decoration: none;
+}
+.cancelButtonMI {
+  background-color: #bdbdbd;
+  border-color: #bdbdbd;
+}
+.cancelButtonMI:hover {
+  background-color: #bdbdbd;
+  border-color: #bdbdbd;
+}
+.cancelButtonMI:focus {
+  background-color: #bdbdbd;
+  border-color: #bdbdbd;
+}
+.saveButtonMI {
+  width: 75px;
+  background-color: #f2994a;
+  border-color: #f2994a;
+}
+.saveButtonMI:hover {
+  background-color: #f2994a;
+  border-color: #f2994a;
+}
+.saveButtonMI:focus {
+  background-color: #f2994a;
+  border-color: #f2994a;
+}
+.deleteButtonMI {
+  background-color: #eb5757;
+  border-color: #eb5757;
+  width: 75px;
+  display: none;
+}
+.deleteButtonMI:hover {
+  background-color: #eb5757;
+  border-color: #eb5757;
+}
+.deleteButtonMI:focus {
+  background-color: #eb5757;
+  border-color: #eb5757;
+}
+.logOutBtm {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  bottom: 2%;
+  background-color: #ff7f00;
+  color: white;
+}
+.unconsistantDesigns {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.isOrange {
+  color: #ff7f00;
+}

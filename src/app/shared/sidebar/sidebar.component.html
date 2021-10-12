@@ -1,0 +1,48 @@
+<div class="sidebar" [class._hideForSide]='!isHidden' [class.apawMhrNay]='isMediaShow'>
+  <div class=" sidebarTextMain noPadding">
+    <a style="color: white; text-decoration: None;" routerLink="/">
+      <p>MyID CMS</p>
+    </a>
+  </div> <br> <br>
+  <div class="sidebarBig noPadding">
+    <a style="color: white; text-decoration: None;" routerLink="/">
+      <p style="display :inline-block;">Announcement</p>
+      <span [class.activeLink]="path=='/'"></span>
+      <span [class.activeLink]="path?.includes('announcements')"> </span>
+    </a>
+  </div>
+
+  <div class="sidebarBig noPadding">
+    <a style="color: white; text-decoration: None;" routerLink="banners">
+      <p style="display :inline-block;">Banners</p>
+    </a>
+
+    <span [class.activeLink]="path?.includes('banners')" class="float-end"> </span>
+    <!-- <i class="fas fa-chevron-down float-end me-2"></i> -->
+  </div>
+
+  <div style="position: relative;" class="sidebarBig noPadding ">
+    <a style="color: white; text-decoration: None; cursor: pointer;" (click)=showPackages();>
+      <p style="display :inline-block;">Packages</p>
+    </a>
+
+    <i *ngIf="packageCollapse" (click)=showPackages();
+      style="position: absolute; right: 0vw; top: 0.8vw; cursor: pointer; font-size: 1.2rem;"
+      class="fas fa-chevron-down float-end me-5 "></i>
+    <i *ngIf="!packageCollapse" (click)=showPackages();
+      style="position: absolute; right: 0vw; top: 0.8vw; cursor: pointer; font-size: 1.2rem;"
+      class="fas fa-chevron-right float-end me-5 "></i>
+  </div>
+  <div [class.hideOrShow]="packageCollapse" class="sidebarSmall noPadding">
+    <span [class.activeLink]="path?.includes('packages')" class="float-end" style="height: 2rem;"> </span>
+    <p class="pointAble" routerLink="/packages">All Packages</p>
+    <span [class.activeLink]="path?.includes('packagecategory')" class="float-end" style="height: 2rem;"> </span>
+    <p class="pointAble" routerLink="/packagecategory"> Category </p>
+  </div>
+
+
+
+  <div class="logOutBtm col-2">
+    <p (click)="logout()" style="margin-left: 10%; font-size: 16px; cursor: pointer;">Log Out</p>
+  </div>
+</div>

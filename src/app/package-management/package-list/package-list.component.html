@@ -1,0 +1,133 @@
+<div style="padding:1rem">
+    <br>
+    <hr style="color: #4A5568;">
+    <div class="row col-12">
+        <div class="mainPageName col-6">
+            <h1>Package List</h1>
+        </div>
+        <div class="mainButtons col-6 row ml-5">
+            <div class="col-6">
+            </div>
+            <div class="col-4">
+                <a routerLink="/packages/create">
+                    <button type="button" style="background-color: #F2994A; border-color: #F2994A;"
+                        class="btn btn-primary float-end">Edit Packages</button>
+                </a>
+            </div>
+            <!-- 
+             -->
+        </div>
+    </div> <br>
+    <div class="row mb-4">
+        <div class="col-1 flexCenter">
+            <p class="packageCategory m-0">Category</p>
+        </div>
+        <div class="col-2">
+            <select name="whiteListType" class="form-select cDropdown" aria-label="Default select example">
+                <option value="" selected disabled>Choose Category</option>
+                <option value="ALL">Just for you</option>
+                <!-- value change ohn api lr yin-->
+                <option value="CUSTOMIZED">Customized</option>
+            </select>
+        </div>
+        <div class="col-3 flexCenter">
+            <p class="arrangementMode m-0">Arrangement mode: </p> <span class="spanSelected ms-2"> {{selectedMode |
+                titlecase}}</span>
+        </div>
+        <div class="col-2">
+            <select [(ngModel)]='selectedMode' name="whiteListType" class="form-select aDropdown"
+                aria-label="Default select example">
+                <option value="" selected disabled>Change Arrangement Mode</option>
+                <option value="RANDOM">Random</option>
+                <option value="PRIORITIES">Priorities</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="col-12 table-responsive ">
+        <table class="table table-striped">
+            <thead>
+
+                <tr>
+                    <th *ngIf="selectedMode=='RANDOM'">No</th>
+                    <th *ngIf="selectedMode=='PRIORITIES'">Priorities</th>
+                    <th>Tumbnail</th>
+                    <th>VAS Code </th>
+                    <th>Name</th>
+                    <th>Segment</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of packages  let ndx = index">
+                    <td style="margin-left:5px; width: 150px;">{{ 10*(offset-1)+ndx+11}}</td>
+                    <td style="width: 180px;"><img class="tableImage" src={{item.imgUrl}} alt="">
+                    </td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.vasType}}</td>
+                    <td class="text-center">
+                        <div class="form-check form-switch">
+                            <input (click)="changeStatus(ndx,item.id,item.isDeleted)" class="form-check-input"
+                                type="checkbox" [checked]="display(item.isDeleted)" id="flexSwitchCheckDefault">
+                        </div>
+                    </td>
+                    <!-- <td>
+                        <a [routerLink]="['/package','edit',item.id]">
+                            <i style="padding-right: 12px; color:black;" class="fas fa-edit">
+                            </i>
+                        </a>
+
+
+                    </td> -->
+
+                </tr>
+                <!-- <tr>
+                    <td style="margin-left:5px; width: 150px;">1</td>
+                    <td style="width: 180px;"><img class="tableImage" src="" alt="">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn"><i class="fas fa-eye"></i></button>
+
+                        <a routerLink="">
+                            <i style="padding: 12px; color:black;" class="fas fa-edit">
+                            </i>
+                        </a>
+                        <button class="btn"><i class="fas fa-trash"></i></button>
+
+                    </td>
+
+                </tr> -->
+
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<br>
+<div style="display: flex; justify-content: center; " class="text-right mb-3">
+
+    <div class="btn-group">
+        <button (click)="onclickP(offset-1)" class="btn btn-sm btn-outline-secondary mx-3" [disabled]="offset===0">
+            prev
+        </button>
+        <span style="cursor: pointer;" class="btn" *ngFor="let page of totalPages"
+            [class.btn-primary]="page === offset + 1" [class.btn-secondary]="page !== offset + 1"
+            (click)="onclickP(page-1)">
+            {{ page }}
+        </span>
+        <button (click)="onclickP(offset+1)" class="btn btn-sm btn-outline-secondary mx-3"
+            [disabled]="offset===totalPages.length-1">
+            next
+        </button>
+    </div>
+</div>

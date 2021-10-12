@@ -1,0 +1,175 @@
+.sidebar {
+  background-color: #f26522;
+  height: 100vh;
+  min-height: 100%;
+  position: fixed;
+  width: 250px;
+  min-width: 12vw;
+  transition: all 200ms ease-in-out;
+  transform: translateX(0);
+  z-index: 80;
+}
+.apawMhrNay {
+  z-index: 100;
+}
+// modal twy bl lo lote llllll
+._hideForSide {
+  transform: translateX(-250px) !important;
+}
+.hideForSidea {
+  left: 0px;
+
+  -moz-animation: slideout 300ms forwards;
+  -o-animation: slideout 300ms forwards;
+  -webkit-animation: slideout 300ms forwards;
+  animation: slideout 300ms forwards;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.activeLink {
+  background-color: #ffea00;
+  float: right;
+  margin-right: 1vw;
+  width: 0.2rem !important;
+  height: 2.5rem;
+  border-radius: 2rem;
+}
+.sidebarText {
+  text-align: center;
+  font-weight: bolder;
+  color: white;
+}
+.sidebarTextMain {
+  text-align: center;
+  font-weight: bolder;
+  color: white;
+  font-size: 2.2rem;
+}
+.sidebarBig {
+  color: white;
+  padding-bottom: 0.1vw;
+  padding-top: 0.3vw;
+  padding-left: 10%;
+  font-size: 1.5rem;
+  height: 3.6rem;
+}
+.pointAble {
+  cursor: pointer;
+}
+.sidebarSmall {
+  color: white;
+  font: 0.9vw;
+  font-weight: 210;
+  margin-left: 3rem;
+  display: none;
+}
+.hideOrShow {
+  display: block;
+}
+.logOutBtm {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  bottom: 2%;
+  background-color: #ff7f00;
+  color: white;
+}
+@-moz-keyframes slidein {
+  0% {
+    left: -250px;
+  }
+  100% {
+    left: 0;
+  }
+}
+@-webkit-keyframes slidein {
+  0% {
+    transform: translateX(-250px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slidein {
+  0% {
+    left: -250px;
+  }
+  100% {
+    left: 0;
+  }
+}
+@-moz-keyframes slideout {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -250px;
+  }
+}
+@-webkit-keyframes slideout {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -250px;
+  }
+}
+@keyframes slideout {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -250px;
+  }
+}
+
+@-moz-keyframes bodyslidein {
+  0% {
+    left: 0;
+  }
+  100% {
+    margin-left: 250px;
+  }
+}
+@-webkit-keyframes bodyslidein {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 0;
+  }
+}
+@keyframes bodyslidein {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 250px;
+  }
+}
+@-moz-keyframes bodyslideout {
+  0% {
+    margin-left: 250px;
+  }
+  100% {
+    margin-right: 0;
+  }
+}
+@-webkit-keyframes bodyslideout {
+  0% {
+    margin-left: 250px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+@keyframes bodyslideout {
+  0% {
+    margin-left: 250px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}

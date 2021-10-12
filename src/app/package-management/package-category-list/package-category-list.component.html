@@ -1,0 +1,168 @@
+<div style="padding:1rem">
+    <br>
+    <hr style="color: #4A5568;">
+    <div class="row col-12">
+        <div class="mainPageName col-6">
+            <h1>Package Category List</h1>
+        </div>
+        <div class="mainButtons col-6 row ml-5">
+            <div class="col-6">
+            </div>
+            <div class="col-4">
+                <a routerLink="/packagecategory/create">
+                    <button type="button" style="background-color: #F2994A; border-color: #F2994A;"
+                        class="btn btn-primary float-end"> Add
+                        New</button>
+                </a>
+            </div>
+            <ng-template #content let-modal let-c="close" let-d="dismiss">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title mainPageName marginBal">Confirmation</h4>
+                    <button type="button" class="close btn" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2 form-group">
+                        <div class="col-4 row">
+                            <div class="col-3">
+                                <p class="headingText">Name</p>
+                            </div>
+                            <div class="col-6 ms-1 centerMiddle">
+                                <p class="ms-5">{{ packageDetail.groupName }}</p>
+                            </div>
+                        </div>
+                        <div class="col-4 row">
+                            <div class="col-3">
+                                <p class="headingText">Code</p>
+                            </div>
+                            <div class="col-6 centerMiddle">
+                                <p>{{ packageDetail.groupCode }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="formgroup">
+                        <div class="col-2">
+                            <p class="headingText">Content</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 row">
+                                <p class="normalText col-2">English</p>
+                                <div class="col-8">
+                                    <p>{{ packageDetail.descriptionEn }}</p>
+                                </div>
+                            </div>
+                            <div class="col-6 row ml-4">
+                                <p class="normalText col-2">Burmese</p>
+                                <div class="col-8">
+                                    <p>{{ packageDetail?.descriptionMm }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="formgroup">
+                        <div class="row">
+                            <div class="col-6 row">
+                                <p class="normalText col-2">Priority</p>
+                                <div class="col-8">
+                                    <p>{{ packageDetail.orderId }}</p>
+                                </div>
+                            </div>
+                            <div class="col-6 row ml-4">
+                                <p class="normalText col-2">Status</p>
+                                <div class="col-8">
+                                    <p>{{ packageDetail?.status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="formgroup">
+                        <div class="row">
+                            <div class="col-12">
+                                <p style="display: inline-block" class="normalText me-4">
+                                    Deeplink
+                                </p>
+                                <input style="border: none" #text readonly value="{{ packageDetail?.link }}" />
+    
+                                <a style="color: gray; cursor: pointer" class="float-end"
+                                    (click)="copyInputMessage(text.value)" value="click to copy">
+                                    <i class="fas fa-clone"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button (click)="d('Cross click')" class="btn btn-warning text-white">Okay</button>
+                </div>
+            </ng-template>
+        </div>
+    </div> <br>
+
+    <div class="col-12 table-responsive ">
+        <table class="table table-striped">
+            <thead>
+
+                <tr>
+                    <th>Priority</th>
+                    <th>Category name</th>
+                    <th>Category code </th>
+                    <th>Description</th>
+                    <th>Availability</th>
+                    <th style="text-align:center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of packages   let ndx = index">
+                    <td style="margin-left:5px; width: 150px;">{{ item.orderId }}</td>
+                    <td>{{item.groupName}}</td>
+                    <td>{{item.groupCode}}</td>
+                    <td>{{item.descriptionEn}}</td>
+
+                    <td>
+                        <div class="form-check form-switch ms-2">
+                            <input (click)="changeStatus(ndx,item.groupCode,item.status)" class="form-check-input"
+                                type="checkbox" [checked]="display(item.status)" id="flexSwitchCheckDefault">
+                        </div>
+                    </td>
+                    <td style="text-align: center;">
+                        <button (click)='showDetail(item.groupCode,content)' class="btn"><i
+                                class="fas fa-eye"></i></button>
+
+                        <a routerLink="edit/{{item.groupCode}}">
+                            <i style="padding: 12px; color:black;" class="fas fa-edit">
+                            </i>
+                        </a>
+                        <button (click)='deletePackage(ndx,item.groupCode,item.status,item.groupName)' class="btn"><i
+                                class="fas fa-trash"></i></button>
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<br>
+
+<div style="display: flex; justify-content: center; " class="text-right">
+
+    <div class="btn-group">
+        <button (click)="onclickP(offset-1)" class="btn btn-sm btn-outline-secondary mx-3" [disabled]="offset===0">
+            prev
+        </button>
+        <span style="cursor: pointer;" class="btn" *ngFor="let page of totalPages"
+            [class.btn-primary]="page === offset + 1" [class.btn-secondary]="page !== offset + 1"
+            (click)="onclickP(page-1)">
+            {{ page }}
+        </span>
+        <button (click)="onclickP(offset+1)" class="btn btn-sm btn-outline-secondary mx-3"
+            [disabled]="offset===totalPages.length-1">
+            next
+        </button>
+    </div>
+</div>

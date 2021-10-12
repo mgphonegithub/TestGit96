@@ -1,0 +1,68 @@
+.profilePic {
+  border-radius: 50%;
+}
+.rightNavBar {
+  margin-right: 10px;
+}
+.logged-in {
+  color: #68d391;
+  size: 60;
+  position: absolute;
+  right: 0%;
+  bottom: -2%;
+}
+.mainPageName {
+  color: #4a5568;
+  font-weight: 900;
+  font-size: 36px;
+}
+.mainButtons {
+  margin-right: 10px;
+  padding: 0;
+}
+.tableImage {
+  border-radius: 7px;
+  width: 150px;
+  height: 70px;
+}
+.form-check-input:checked {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+.packageCategory,
+.arrangementMode {
+  color: #4a5568;
+  font-weight: bold;
+  line-height: 1rem;
+}
+.spanSelected {
+  color: #4a5568;
+  line-height: 1rem;
+}
+.cDropdown {
+  color: red;
+}
+.flexCenter {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.aDropdown {
+  color: #f2994a;
+}
+.marginBal {
+  margin-left: 40%;
+}
+.headingText {
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.normalText {
+  margin-left: 5px;
+}
+.centerMiddle {
+  margin-top: 0.3vw;
+  display: flex;
+}

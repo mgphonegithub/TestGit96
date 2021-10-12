@@ -1,0 +1,435 @@
+<div style="padding: 1rem">
+    <br />
+    <div class="rightNavBar">
+        <a routerLink="" class="backLink">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <p class="float-start">Back to</p>
+        <a routerLink="" class="backLink">
+            <p>Packages list</p>
+        </a>
+
+    </div>
+    <br />
+    <br />
+    <hr style="color: #4a5568" />
+    <form #createForm="ngForm"
+        (submit)="getFormData(createForm.value, contentEN.value, contentMM.value,categortyType.value)">
+        <ng-template #content let-modal let-c="close" let-d="dismiss">
+            <div class="modal-header text-center">
+                <h4 class="modal-title mainPageName marginBal">Confirmation</h4>
+                <button type="button" class="close btn" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2 form-group">
+                    <div class="col-3 row">
+                        <div class="col-4">
+                            <p class="headingText">Code</p>
+                        </div>
+                        <div class="col-6 centerMiddle">
+                            <p>{{ form?.bannerCode }}</p>
+                        </div>
+                    </div>
+                    <div class="col-5 row">
+                        <div class="col-4">
+                            <p class="headingText">Category</p>
+                        </div>
+                        <div class="col-7 ms-1 centerMiddle">
+                            <p class="ms-5">{{ form?.bannerType[1] }}</p>
+                        </div>
+                    </div>
+                    <div class="col-4 row">
+                        <div class="col-3">
+                            <p class="headingText">Name</p>
+                        </div>
+                        <div class="col-6 centerMiddle">
+                            <p>{{ form?.packName }} </p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row mb2 form-group">
+                    <div class="col-1">
+                        <p class="headingText">Image</p>
+                    </div>
+                    <div style="display: inherit" *ngIf="this.url !== ''" class="col-10 row showOnSelectOrEdit">
+                        <img class="choseImage col-4" [src]="this.url" alt="" />
+                        <div class="col-7">
+                            <p>{{ fileName }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb2 form-group">
+                    <div class="col-1">
+                        <p class="headingText">Image</p>
+                    </div>
+                    <div style="display: inherit" *ngIf="this.url=='' && pacakgeDetail?.imgUrl !== ''"
+                        class="col-10 row showOnSelectOrEdit">
+                        <img class="choseImage col-4" [src]="pacakgeDetail?.imgUrl" alt="" />
+                        <div class="col-7">
+                            <p>{{ fileName }}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="formgroup">
+                    <div class="col-2">
+                        <p class="headingText">Content</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 row">
+                            <p class="normalText col-2">English</p>
+                            <div class="col-8">
+                                <p>{{ form?.contentEn }}</p>
+                            </div>
+                            <span class="activeLink " style="height: inherit;"></span>
+                        </div>
+                        <div class="col-6 row ml-4">
+                            <p class="normalText col-2">Burmese</p>
+                            <div class="col-8">
+                                <p>{{ form?.contentMm }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="formgroup">
+                    <div class="">
+                        <p class="headingText">Payment Method</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 row">
+                            <div class="col-2"></div>
+                            <div class="form-check ms-3 col-8">
+                                <img src="../../../assets/image/Group 561.png" width="25vw" class="mb-1 me-1" alt="" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Main Balance
+                                </label>
+                                <p *ngIf='pacakgeDetail?.mainBalance'
+                                    style="background-color: #EFEFEF; display: inline-block; margin-left: 2vw; padding: 0 10px">
+                                    Price :
+                                    {{toLocalValue(pacakgeDetail?.mainBalance)}} Ks
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="col-8 row">
+                                <div class="col-2"></div>
+                                <div class="form-check ms-3 col-10">
+                                    <img src="../../../assets/image/Group 620.png" width="25vw" class="mb-1 me-1"
+                                        alt="" />
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        MytelPay
+                                    </label>
+                                    <p *ngIf='pacakgeDetail?.mytelpay'
+                                        style="background-color: #EFEFEF; display: inline-block; margin-left: 2vw; padding: 0 10px">
+                                        Price :
+                                        {{toLocalValue(pacakgeDetail?.mytelpay)}} Ks
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <br />
+
+                <div class="formgroup">
+                    <div class="">
+                        <p class="headingText">Optional</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-7 row">
+                            <div class="col-2"></div>
+                            <div class="form-check ms-3 col-3">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Giftable -
+                                </label>
+                                <p class="ms-2" style="display: inline-block">
+                                    {{ yesOrNo(form?.optional1) }}
+                                </p>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="form-check ms-3 col-4">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Renewable -
+                                </label>
+                                <p class="ms-2" style="display: inline-block">
+                                    {{ yesOrNo(form?.optional2) }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="formgroup">
+                    <div class="">
+                        <p style="display: inline-block" class="headingText me-4">
+                            Segmentation
+                        </p>
+                        <span> {{ form?.whiteListType }}</span>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12">
+                            <p style="display: inline-block" class="normalText me-4">
+                                Deeplink
+                            </p>
+                            <span> {{ form?.link }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)='confirmSave();' (click)="d('Cross click')" class="btn btn-primary">Save</button>
+            </div>
+        </ng-template>
+        <div class="row">
+            <div class="mainPageName col-5">
+                <h1>Add New</h1>
+            </div>
+
+            <div class="mainButtons col-6">
+                <button type="submit" (click)="openVerticallyCentered(content)"
+                    class="btn btn-primary mainButton saveButtonMI float-end">
+                    Save
+                </button>
+                <button type="button" class="btn btn-primary mainButton deleteButtonMI float-end">
+                    Delete
+                </button>
+                <button (click)="
+            this.createForm.reset(); imageNoForm.value = ''; this.url = ''
+          " type="button" class="btn btn-primary mainButton cancelButtonMI float-end">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <div class="alert alert-danger d-flex align-items-center" *ngIf="isError">
+            <i class="fa fa-exclamation-circle fa-2x mx-4"></i>
+            Something went wrong!
+        </div>
+        <hr style="color: #4a5568" />
+
+        <div class="row mb-2 form-group">
+            <div class="col-3 row pe-0">
+                <div class="col-4">
+                    <p class="headingText">Code</p>
+                </div>
+                <div class="col-7 ">
+                    <select (change)='choosePackage(chosenCode.value)' #chosenCode ngModel name="bannerCode"
+                        class="form-select unknownDropdown " aria-label="Default select example">
+                        <option value="" disabled selected>Code</option>
+                        <option *ngFor='let item of packagesCode' value="{{item}}">{{item}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div [class.hiddenHAHAH]='isChosen' class="col-5 row pe-0">
+                <div class="col-4">
+                    <p class="headingText">Category</p>
+                </div>
+                <div class="col-7 ms-1">
+                    <select name="bannerType" #categortyType class="form-select unknownDropdown"
+                        aria-label="Default select example">
+                        <option selected [value]='pacakgeDetail?.groupPackCode' disabled>
+                            {{pacakgeDetail?.groupPackName}}
+                        </option>
+                        <option *ngFor='let item of packageCategories' value="{{item.groupCode}},{{item.groupName}}">
+                            {{item.groupName}}
+                        </option>
+
+                    </select>
+                </div>
+            </div>
+            <div [class.hiddenHAHAH]='isChosen' class="col-4 row ps-0">
+                <div class="col-4">
+                    <p class="headingText">Name</p>
+                </div>
+                <div class="col-7">
+                    <input ngModel [ngModel]='pacakgeDetail?.packName' name="packName" type="text"
+                        class="form-control" />
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div [class.hiddenHAHAH]='isChosen'>
+            <div class="row mb2 form-group">
+                <div class="col-1">
+                    <p class="headingText">Image</p>
+                </div>
+                <div class="col-10">
+                    <input #imageNoForm (change)="onFileSelected($event)" name="imageFile" style="float: left"
+                        type="file" class="custom-file-input" id="customFile" />
+                    <p class="floatLeftnotBootstrap">(jpg/png; size file < 200 Kb)</p>
+
+                </div>
+
+                <br />
+
+                <div class="col-1"></div>
+                <div style="display: inherit" *ngIf="this.url !== ''" else #packageUrl
+                    class="col-11 row showOnSelectOrEdit ">
+                    <div class="col-1"></div>
+                    <img class="choseImage col-4 " style="margin-left: 0.8vw;" [src]="this.url " alt="" />
+                    <div class="col-7">
+                        <p>{{ fileName }}</p>
+                        <td>
+
+                        </td>
+                    </div>
+                </div>
+                <div style="display: inherit" *ngIf="this.url==''&& pacakgeDetail?.imgUrl !== ''"
+                    class="col-11 row showOnSelectOrEdit ">
+                    <div class="col-1"></div>
+                    <img class="choseImage col-4 " style="margin-left: 0.8vw;" [src]="pacakgeDetail?.imgUrl" alt="" />
+                    <div class="col-7">
+                        <p>{{ fileName }}</p>
+                        <td>
+
+                        </td>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+
+            <div class="formgroup">
+                <div class="col-2">
+                    <p class="headingText">Content</p>
+                </div>
+                <div class="row">
+                    <div class="col-6 row">
+                        <p class="normalText col-2">English</p>
+                        <div class="col-8 me-5 ">
+                            <textarea id="contentEn" #contentEN class="form-control" rows="10"
+                                placeholder="">{{pacakgeDetail?.descriptionEn}}</textarea>
+                        </div>
+
+                    </div>
+                    <div class="col-6 row ml-4">
+                        <p class="normalText col-3">Burmese</p>
+                        <div class="col-8">
+                            <textarea id="contentMm" #contentMM class="form-control" rows="10"
+                                placeholder="">{{pacakgeDetail?.descriptionMm}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="formgroup">
+                <div class="">
+                    <p class="headingText">Payment Method</p>
+                </div>
+                <div class="row">
+                    <div class="col-6 row">
+                        <div class="col-2"></div>
+                        <div class="form-check ms-3 col-9">
+                            <input [checked]='pacakgeDetail?.mainBalance' ngModel class="form-check-input"
+                                name="paymentMethod1" type="checkbox" value="" disabled />
+                            <img src="../../../assets/image/Group 561.png" width="25vw" class="mb-1 me-1" alt="" />
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Main Balance
+                            </label>
+                            <p *ngIf='pacakgeDetail?.mainBalance'
+                                style="background-color: #EFEFEF; display: inline-block; margin-left: 2vw; padding: 0 10px">
+                                Price :
+                                {{toLocalValue(pacakgeDetail?.mainBalance)}} Ks
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="col-11 row">
+                            <div class="col-1"></div>
+                            <div class="form-check ms-3 col-10">
+                                <input [checked]='pacakgeDetail?.mytelpay' ngModel class="form-check-input"
+                                    name="paymentMethod2" type="checkbox" value="" disabled />
+                                <img src="../../../assets/image/Group 620.png" width="25vw" class="mb-1 me-1" alt="" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    MytelPay
+                                </label>
+                                <p *ngIf='pacakgeDetail?.mytelpay'
+                                    style="background-color: #EFEFEF; display: inline-block; margin-left: 2vw; padding: 0 10px">
+                                    Price :
+                                    {{toLocalValue(pacakgeDetail?.mytelpay)}} Ks
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <br />
+
+            <div class="formgroup">
+                <div class="">
+                    <p class="headingText">Optional</p>
+                </div>
+                <div class="row">
+                    <div class="col-6 row">
+                        <div class="col-2"></div>
+                        <div class="form-check ms-3 col-3">
+                            <input [checked]='pacakgeDetail?.giftable' ngModel [(ngModel)]="isUnchecked"
+                                class="form-check-input" name="optional1" type="checkbox" value="false" />
+                            <label class="form-check-label" for="flexCheckDefault1">
+                                Giftable
+                            </label>
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="form-check ms-3 col-3">
+                            <input [checked]='pacakgeDetail?.renewable' ngModel class="form-check-input"
+                                name="optional2" type="checkbox" value="false" />
+                            <label class="form-check-label" for="flexCheckDefault1">
+                                Renewable
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="formgroup">
+                <div class="">
+                    <p class="headingText">Segmentation</p>
+                </div>
+                <!-- <div class="row">
+                    <p class="normalText col-1">Type</p>
+                    <div class="dropdown col-6" style="padding-left: 7px; max-width: 250px;">
+                        <select [(ngModel)]="selectedType" ngModel name="whiteListType"
+                            class="form-select unknownDropdown" aria-label="Default select example">
+                            <option value="" selected disabled>White List Type</option>
+                            <option value="ALL">All</option>
+                            <option value="CUSTOMIZED">Customized</option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div *ngIf="selectedType === 'CUSTOMIZED'" style="display: block" class="col-11 hideAndShow mb-1">
+                        <input (change)="onFileSelectedWhiteList($event)" style="float: left" type="file"
+                            class="custom-file-input" id="customFile" />
+                        <p class="floatLeftnotBootstrap">
+                            (support only xls, xlsx, txt or csv)
+                        </p>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-1">
+                        <p class="normalText">Deeplink</p>
+                    </div>
+                    <div class="col-11">
+                        <input [ngModel]='pacakgeDetail?.deepLink' ngModel name="link" type="text" class="form-control"
+                            id="UrlName" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

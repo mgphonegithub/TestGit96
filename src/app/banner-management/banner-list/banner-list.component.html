@@ -1,0 +1,101 @@
+<div style="padding:1rem">
+    <hr style="color: #4A5568;">
+    <div class="row col-12">
+        <div class="mainPageName col-6">
+            <h1>Home Pop-up List</h1>
+        </div>
+        <div class="mainButtons col-6 row ml-5">
+            <div class="col-3 smallYinPyout">
+            </div>
+            <div class="col-5" style="min-width: 170px;">
+                <select (change)="displayType(type.value,0)" #type name="typeAnnouncement"
+                    class="form-select unknownDropdown float-end" aria-label="Default select example">
+                    <option value="" disabled selected>Banner Types</option>
+                    <option value="ALL">ALL</option>
+                    <option value="HOME">Home</option>
+                    <option value="SELFCARE">Self Care</option>
+                    <option value="LOYALTY">Loyality</option>
+                    <option value="REFER_CODE">Refer Code</option>
+                    <option value="FTTH_BANNER">FTTH Banner</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <a routerLink="/banners/create">
+                    <button type="button" style="background-color: #F2994A; border-color: #F2994A;"
+                        class="btn btn-primary float-end"> Add
+                        New</button>
+                </a>
+            </div>
+            <!-- 
+             -->
+
+        </div>
+    </div> <br>
+    <div class="col-12 table-responsive ">
+        <table class="table table-striped">
+            <thead>
+
+                <tr>
+                    <th>Priority #</th>
+                    <th>Banner</th>
+                    <th>Name </th>
+                    <th>Type</th>
+                    <th>Valid Time</th>
+                    <th>Segment</th>
+                    <th>Availability</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let banner of banners  let ndx = index">
+                    <td style="margin-left:5px; width: 150px;">{{ 10*(offset-1)+ndx+11 }}</td>
+                    <td style="width: 180px;"><img class="tableImage" src={{banner.imgUrl}} alt="">
+                    </td>
+                    <td>{{banner.name}}</td>
+                    <td>{{banner.bannerType}}</td>
+                    <td>{{banner.startTime | date: 'dd/MM/yyyy'}} -<br>
+                        {{banner.endTime | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{banner.whiteListType}}</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input (click)="changeStatus(ndx,banner.id,banner.status)" class="form-check-input"
+                                type="checkbox" [checked]="display(banner.status)" id="flexSwitchCheckDefault">
+                        </div>
+                    </td>
+                    <td>
+                        <!-- <a (click)="edit(banner.id)"> -->
+                        <!-- dr ka no service method -->
+                        <a routerLink="edit/{{banner.id}}">
+                            <i style="padding-right: 12px; color:black;" class="fas fa-edit">
+                            </i>
+                        </a>
+                        <button (click)="deleteBanner(ndx,banner.id,banner.status,banner.name)" class="btn"><i
+                                class="fas fa-trash"></i></button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<br>
+<div style="display: flex; justify-content: center; " class="text-right">
+
+    <div class="btn-group">
+        <button (click)="onclickP(offset-1)" class="btn btn-sm btn-outline-secondary mx-3" [disabled]="offset===0">
+            prev
+        </button>
+        <span style="cursor: pointer;" class="btn" *ngFor="let page of totalPages"
+            [class.btn-primary]="page === offset + 1" [class.btn-secondary]="page !== offset + 1"
+            (click)="onclickP(page-1)">
+            {{ page }}
+        </span>
+        <button (click)="onclickP(offset+1)" class="btn btn-sm btn-outline-secondary mx-3"
+            [disabled]="offset===totalPages.length-1">
+            next
+        </button>
+    </div>
+</div>

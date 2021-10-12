@@ -1,0 +1,195 @@
+<div style="padding: 1rem;">
+
+
+    <br>
+    <div class="rightNavBar ">
+        <a routerLink="" class="backLink">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <p class="float-start">Back to</p>
+        <a routerLink="" class="backLink">
+            <p> Home Pop-up Main list</p>
+        </a>
+
+
+
+
+    </div> <br> <br>
+    <hr style="color: #4A5568;">
+    <form #createForm="ngForm" (submit)="getFormData(createForm.value)">
+        <div class="row">
+            <div class="mainPageName col-5">
+                <h1>Edit - {{bannerDetail.name}}</h1>
+            </div>
+
+            <div class="mainButtons col-6 ">
+                <button type="submit" class="btn btn-primary mainButton saveButtonMI float-end" [disabled]='isLoading'>
+                    Save </button>
+                <button style="display: block;" type="button" (click)="deleteBanner(bannerDetail.id,bannerDetail.name)"
+                    class="btn btn-primary  mainButton deleteButtonMI float-end"> Delete </button>
+                <button (click)="this.createForm.reset(); imageNoForm.value=''; this.url=''" type="button"
+                    class="btn btn-primary  mainButton cancelButtonMI float-end"> Cancel </button>
+            </div>
+        </div>
+
+        <div class="alert alert-danger d-flex align-items-center" *ngIf="isError">
+            <i class="fa fa-exclamation-circle fa-2x mx-4"></i>
+            Something went wrong!
+        </div>
+        <hr style="color: #4A5568;">
+
+        <div class="row mb-2 form-group">
+            <div class="col-1">
+                <p class="headingText"> Name </p>
+            </div>
+            <div class="col-11">
+                <input [(ngModel)]="bannerDetail.name" ngModel name="name" type="text" class="form-control"
+                    id="bannerName">
+            </div>
+        </div> <br>
+
+        <div class="row mb2 form-group">
+            <div class="col-1">
+                <p class="headingText"> Image </p>
+            </div>
+            <div class="col-11 ">
+                <input #imageNoForm (change)="onFileSelected($event)" name="imageFile" style="float:left; " type="file"
+                    class="custom-file-input" id="customFile">
+                <p class="floatLeftnotBootstrap">(jpg/png; size file < 200 Kb)</p>
+            </div> <br>
+
+            <div class="col-1">
+            </div>
+            <div style="display: inherit;" *ngIf="this.url!==''" class="col-11 row showOnSelectOrEdit">
+                <img class="choseImage col-4" [src]="bannerDetail.imgUrl" alt="">
+                <div class="col-7">
+                    <p>{{fileName}}</p>
+                    <td><a href=""><i style="padding-right: 10px;" class="fas fa-edit editCustom"></i></a>
+                        <button class="btn"><i class="fas fa-trash editCustom"></i></button>
+                    </td>
+                </div>
+
+
+            </div>
+        </div> <br>
+
+        <div class="formgroup">
+            <div class="col-2">
+                <p class="headingText">Valid time</p>
+            </div>
+            <div class="row">
+                <div class="col-6 row">
+                    <!-- <p class="normalText col-2"> Start date</p> -->
+                    <div class="form-group row">
+                        <p class="normalText col-2">Start date</p>
+                        <div class="col-sm-7">
+                            <input [ngModel]="bannerDetail.startTime | date:'yyyy-MM-ddThh:mm'"
+                                (ngModelChange)="bannerDetail.startTime=$event" ngModel name="startTime"
+                                style="height: 1.8rem; width: 80%;" type="datetime-local" id="date-time-local-start">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6 row">
+                    <!-- <p class="normalText col-2"> Start date</p> -->
+                    <div class="form-group row">
+                        <label style=" margin-left: 2%;" for="inputname" class="col-sm-2 col-form-label">End
+                            date</label>
+                        <div class="col-sm-7">
+                            <input [(ngModel)]="bannerDetail.endTime"
+                                [ngModel]="bannerDetail.endTime | date:'yyyy-MM-ddThh:mm'" ngModel name="endTime"
+                                style="height: 1.8rem; width: 80%;" type="datetime-local" id="date-time-local-start">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div> <br>
+        <div class="formgroup">
+            <div class="">
+                <p class="headingText"> Type </p>
+            </div>
+            <div class="row">
+                <p class="normalText col-1">Banner Type</p>
+                <div class="dropdown col-2" style="padding-left: 7px;">
+                    <select [(ngModel)]="bannerDetail.bannerType" ngModel name="bannerType"
+                        class="form-select unknownDropdown" aria-label="Default select example">
+                        <option value="" disabled selected>Banner Types</option>
+                        <option value="HOME">Home</option>
+                        <option value="SELFCARE">Self Care</option>
+                        <option value="LOYALTY">Loyality</option>
+                        <option value="REFER_CODE">Refer Code</option>
+                        <option value="FTTH_BANNER">FTTH Banner</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <div class="formgroup">
+            <div class="">
+                <p class="headingText"> Call-to-action button </p>
+            </div>
+            <div class="row">
+                <p class="normalText col-1">Type</p>
+                <div class="dropdown col-2" style="padding-left: 7px;">
+                    <select [(ngModel)]="bannerDetail.linkType" ngModel name="linkType"
+                        class="form-select unknownDropdown" aria-label="Default select example">
+                        <option value="" disabled selected>Link Types</option>
+                        <option value="HREF">URL</option>
+                        <option value="DEEP_LINK">Deep Link</option>
+                        <option value="NONE">None</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class=" row">
+                <div class="col-1">
+                    <p class="normalText"> Url </p>
+                </div>
+                <div class="col-11">
+                    <input [(ngModel)]="bannerDetail.link" ngModel name="link" type="text" class="form-control"
+                        id="UrlName">
+                </div>
+            </div>
+        </div> <br>
+        <div class="formgroup">
+            <div class="">
+                <p class="headingText"> Segment </p>
+            </div>
+            <div class="row">
+                <p class="normalText col-1">Type</p>
+                <div class="dropdown col-2" style="padding-left: 7px;">
+                    <select [(ngModel)]="bannerDetail.whiteListType" name="whiteListType"
+                        class="form-select unknownDropdown" aria-label="Default select example">
+                        <option value="" selected disabled>White List Type</option>
+                        <option value="ALL">All</option>
+                        <option value="CUSTOMIZED">Customized</option>
+
+                    </select>
+                </div>
+            </div> <br>
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div *ngIf="bannerDetail.whiteListType==='CUSTOMIZED'" style="display: block;"
+                    class="col-11 hideAndShow ">
+                    <input (change)="onFileSelectedWhiteList($event)" style="float:left; " type="file"
+                        class="custom-file-input" id="customFile">
+                    <br> <br>
+                    <div class="">
+                        <!-- <p class="col-4">
+                            <span class="isOrange"> Current Chosen File: </span>
+                            {{bannerDetail.bannerFileWhiteList.nameFile}}
+                        </p> -->
+                        <button *ngIf="bannerDetail.bannerFileWhiteList" type="button"
+                            (click)="removeWhiteList(bannerDetail.id,bannerDetail.bannerFileWhiteList.id)"
+                            class="btn btn-danger ml-5 col-3">Remove Current
+                            White List</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,9 @@
+<div class="container-fluid noPadding" style="height: 100%;">
+  <app-sidebar></app-sidebar>
+  <div class="noPadding" [class.showForSide]='isHidden' [class.hideForSide]='!isHidden'
+    [class.apawMhrNay]='isMediaShow'>
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </div>
+</div>

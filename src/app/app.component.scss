@@ -1,0 +1,34 @@
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.noPadding {
+  padding: 0;
+  margin: 0;
+}
+.showForSide {
+  margin-left: 250px;
+  -moz-animation: bodyslidein 300ms forwards;
+  -o-animation: bodyslidein 300ms forwards;
+  -webkit-animation: bodyslidein 300ms forwards;
+  animation: bodyslidein 300ms forwards;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.hideForSide {
+  margin-left: 0px;
+
+  -moz-animation: bodyslideout 300ms forwards;
+  -o-animation: bodyslideout 300ms forwards;
+  -webkit-animation: bodyslideout 300ms forwards;
+  animation: bodyslideout 300ms forwards;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+// .apawMhrNay {
+//   margin-left: 0px !important;
+// }
+//hover yin pyn pyout tr bl lo lote ya ll ma thi loh :)

@@ -1,0 +1,155 @@
+<div style="background-color: white; position: relative;" class="content-wrapper announcement-list">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-5 ml-2 mainPageName">
+          <h1>Announcement List</h1>
+        </div>
+        <!-- search bar -->
+        <!-- <div class="col-2 col-sm-2 float-right">
+
+          <div class="input-group">
+            <input class="form-control " type="search" placeholder="Select Column" aria-label="Search">
+            <div class="input-group-append">
+
+            </div>
+          </div>
+        </div> -->
+        <div class="col-2">
+
+        </div>
+
+        <div class="col-sm-2 float-right">
+          <!-- <div class="input-group">
+            <input class="form-control" style="margin-right: 2vw;" type="search" placeholder="Search List..."
+              aria-label="Search">
+          </div> -->
+        </div>
+        <div class="col-3">
+          <a routerLink="/announcements/create">
+            <button type="button" style="background-color: #F2994A; border-color: #F2994A;"
+              class="btn btn-primary float-right ml-2"> Add New
+            </button>
+          </a>
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+
+  <div class="row">
+    <div class="col-12 table-responsive ml-1">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Priority #</th>
+            <th>Name</th>
+            <th>Content</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Type</th>
+            <th>Availability</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody cdkDropList class="example-list" (cdkDropListDropped)="drop($event); ">
+          <tr (mousedown)="test(ndx,announcement.priority,announcement.id)"
+            *ngFor="let announcement of announcements; let ndx = index" cdkDrag cdkDragLockAxis="y">
+            <ng-container *ngIf="announcement.statusActive=='ON'">
+              <td>{{announcement.priority}}</td>
+              <td>{{announcement.name}}</td>
+              <td>{{announcement.contentEn}}</td>
+              <td>{{announcement.startTime}}</td>
+              <td>{{announcement.endTime}}</td>
+              <td>{{announcement.typeAnnouncement}}</td>
+              <td>
+                <div style=" display: flex; justify-content: center;" class="form-check form-switch">
+                  <input (click)="changeStatus(ndx,announcement.id,announcement.statusActive)" class="form-check-input"
+                    type="checkbox" id="flexSwitchCheckChecked" [checked]="display(announcement.statusActive)">
+
+                </div>
+              </td>
+              <td>
+                <a routerLink="/announcements/edit/{{announcement.id}}">
+                  <i style="color: black; padding-right: 15px;" class="fas fa-edit "></i>
+                </a>
+                <button (click)="deleteAPI(ndx,announcement.id,announcement.name)" class="btn">
+                  <i class="fas fa-trash "></i>
+                </button>
+              </td>
+            </ng-container>
+          </tr>
+          <br>
+          <tr
+            *ngFor="let announcement of announcements | paginate: { itemsPerPage: 10, currentPage: p }; let ndx = index">
+            <ng-container *ngIf="announcement.statusActive=='OFF'">
+
+              <td>-</td>
+              <td>{{announcement.name}}</td>
+              <td>{{announcement.contentEn}}</td>
+              <td>{{announcement.startTime}}</td>
+              <td>{{announcement.endTime}}</td>
+              <td>{{announcement.typeAnnouncement}}</td>
+              <td>
+                <div style=" display: flex; justify-content: center;" class="form-check form-switch">
+                  <input (click)="changeStatus(ndx,announcement.id,announcement.statusActive)" class="form-check-input"
+                    type="checkbox" id="flexSwitchCheckChecked" [checked]="display(announcement.statusActive)">
+
+                </div>
+              </td>
+              <td>
+
+                <i style="color: grey; padding-right: 15px;" class="fas fa-edit "></i>
+
+
+                <i style="color: grey; cursor: default;" class="fas fa-trash btn"> </i>
+
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+
+        <!-- <tbody cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+          <tr class="example-box" *ngFor="let announcement of announcements" cdkDrag cdkDragLockAxis="y">
+            <td>{{announcement.priority}}</td>
+            <td>{{announcement.name}}</td>
+            <td>{{announcement.contentEn}}</td>
+            <td>{{announcement.startTime}}</td>
+            <td>{{announcement.endTime}}</td>
+            <td>{{announcement.typeAnnouncement}}</td>
+            <td>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+              </div>
+            </td>
+
+            <td>
+              <a href="/"><i style="color:black; padding: 10px" class="material-icons icon-edit">edit</i></a>
+              <button class="btn"><i class="material-icons icon-delete">delete</i></button>
+            </td>
+
+          </tr>
+        </tbody> -->
+      </table>
+    </div>
+    <!-- /.col -->
+  </div>
+
+</div>
+<br>
+<div style="display: flex; justify-content: center; " class="text-right">
+  <div class="btn-group">
+    <button (click)="onclickP(offset-1)" class="btn btn-sm btn-outline-secondary mx-3" [disabled]="offset===0">
+      prev
+    </button>
+    <span style="cursor: pointer;" class="btn" *ngFor="let page of totalPages" [class.btn-primary]="page === offset + 1"
+      [class.btn-secondary]="page !== offset + 1" (click)="onclickP(page-1)">
+      {{ page }}
+    </span>
+    <button (click)="onclickP(offset+1)" class="btn btn-sm btn-outline-secondary mx-3"
+      [disabled]="offset===totalPages.length-1">
+      next
+    </button>
+  </div>
+</div>
