@@ -68,8 +68,8 @@ export class UpdateBannerComponent implements OnInit {
     const formDataChangable: FormData = new FormData();
     if (this.image) {
       formDataChangable.append("file_image", this.image);
-
     }
+
     var blob = new Blob([JSON.stringify(this.form)], { type: "application/json" })
     formDataChangable.append("request", blob);
     if (this.whiteListFile) {
